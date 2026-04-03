@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sayana K — D365 & Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#080d14;--bg2:#0d1520;--bg3:#111c2b;--bg4:#162030;
+  --cyan:#00c8f8;--white:#ffffff;--muted:#8899aa;
+  --border:rgba(0,200,248,0.12);--border2:rgba(255,255,255,0.07);
+  --grid:rgba(0,200,248,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(8,13,20,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border2);}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:0.05em;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--cyan);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--cyan);}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 4rem;position:relative;z-index:1;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;}
+.avail-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Source Code Pro',monospace;font-size:0.75rem;font-weight:600;color:var(--cyan);border:1px solid rgba(0,200,248,0.35);background:rgba(0,200,248,0.07);padding:6px 16px;border-radius:100px;margin-bottom:1.75rem;}
+.avail-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(4rem,9vw,7.5rem);font-weight:900;line-height:0.95;letter-spacing:-0.01em;margin-bottom:1.25rem;}
+.hero-name .cyan{color:var(--cyan);display:block;}
+.hero-role{font-family:'Source Code Pro',monospace;font-size:0.9rem;color:var(--muted);letter-spacing:0.05em;margin-bottom:1.5rem;}
+.hero-desc{font-size:1rem;color:var(--muted);max-width:580px;line-height:1.8;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.btn-cyan{display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:#000;font-weight:700;font-size:0.9rem;padding:0.8rem 1.75rem;border-radius:6px;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;}
+.btn-cyan:hover{background:#33d4ff;transform:translateY(-2px);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);font-weight:700;font-size:0.9rem;padding:0.8rem 1.75rem;border-radius:6px;border:1px solid rgba(255,255,255,0.25);text-decoration:none;cursor:pointer;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--cyan);color:var(--cyan);}
+
+/* SOCIAL BUTTONS */
+.social-row{display:flex;gap:0.65rem;}
+.social-btn{width:42px;height:42px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.social-btn svg{width:18px;height:18px;fill:var(--muted);transition:fill 0.2s;}
+.social-btn:hover{border-color:var(--cyan);background:rgba(0,200,248,0.08);}
+.social-btn:hover svg{fill:var(--cyan);}
+
+/* SECTIONS */
+.sec{padding:5rem 3rem;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.sec-border{border-top:1px solid var(--border2);}
+.sec-label{font-family:'Source Code Pro',monospace;font-size:0.75rem;font-weight:600;color:var(--cyan);letter-spacing:0.15em;margin-bottom:0.6rem;}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;letter-spacing:-0.01em;line-height:1.05;margin-bottom:0.5rem;}
+.sec-title .cyan{color:var(--cyan);}
+.sec-divider{width:48px;height:3px;background:var(--cyan);border-radius:2px;margin-bottom:3rem;}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;}
+@media(max-width:1000px){.skills-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.skills-grid{grid-template-columns:1fr;}}
+.skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:border-color 0.2s,background 0.2s;}
+.skill-card:hover{border-color:rgba(0,200,248,0.4);background:rgba(0,200,248,0.04);}
+.skill-card-head{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
+.skill-icon{width:34px;height:34px;border-radius:8px;background:rgba(0,200,248,0.12);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+.skill-card-title{font-size:0.88rem;font-weight:700;color:var(--cyan);line-height:1.3;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.stag{font-size:0.75rem;font-weight:500;padding:5px 12px;border-radius:100px;background:var(--bg3);border:1px solid var(--border2);color:var(--white);transition:border-color 0.2s,color 0.2s;}
+.stag:hover{border-color:var(--cyan);color:var(--cyan);}
+
+/* EXPERIENCE */
+.exp-timeline{display:flex;gap:2.5rem;}
+.exp-timeline-bar{display:flex;flex-direction:column;align-items:center;padding-top:24px;}
+.exp-dot{width:14px;height:14px;border-radius:50%;background:var(--cyan);border:3px solid var(--bg);box-shadow:0 0 0 3px rgba(0,200,248,0.25);flex-shrink:0;}
+.exp-line{flex:1;width:2px;background:linear-gradient(to bottom,var(--cyan),transparent);margin-top:6px;}
+.exp-cards{flex:1;display:flex;flex-direction:column;gap:1.5rem;}
+.exp-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:2rem;transition:border-color 0.2s;}
+.exp-card:hover{border-color:rgba(0,200,248,0.35);}
+.exp-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.4rem;flex-wrap:wrap;}
+.exp-role{font-size:1.2rem;font-weight:800;color:var(--white);}
+.exp-period{font-family:'Source Code Pro',monospace;font-size:0.75rem;padding:5px 14px;border-radius:100px;border:1px solid rgba(0,200,248,0.3);color:var(--cyan);white-space:nowrap;flex-shrink:0;}
+.exp-company{font-size:0.85rem;color:var(--muted);margin-bottom:0.6rem;}
+.exp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem;}
+.exp-tag{font-family:'Source Code Pro',monospace;font-size:0.72rem;font-weight:600;color:var(--cyan);letter-spacing:0.05em;}
+.exp-tag+.exp-tag::before{content:'·';margin-right:6px;color:var(--muted);}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.exp-bullets li{font-size:0.88rem;color:var(--muted);padding-left:1.25rem;position:relative;line-height:1.7;}
+.exp-bullets li::before{content:'›';position:absolute;left:0;color:var(--cyan);font-size:1rem;line-height:1.6;}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+@media(max-width:900px){.proj-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:580px){.proj-grid{grid-template-columns:1fr;}}
+.proj-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:all 0.25s;position:relative;overflow:hidden;}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);opacity:0;transition:opacity 0.25s;}
+.proj-card:hover{border-color:rgba(0,200,248,0.35);transform:translateY(-4px);}
+.proj-card:hover::before{opacity:1;}
+.proj-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:rgba(0,200,248,0.1);line-height:1;margin-bottom:0.75rem;}
+.proj-title{font-size:0.97rem;font-weight:700;color:var(--white);margin-bottom:1rem;line-height:1.4;}
+.proj-points{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+.proj-points li{font-size:0.82rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.6;}
+.proj-points li::before{content:'›';position:absolute;left:0;color:var(--cyan);}
+
+/* CERTIFICATIONS */
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+@media(max-width:900px){.certs-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:580px){.certs-grid{grid-template-columns:1fr;}}
+.cert-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;display:flex;align-items:center;gap:1rem;transition:border-color 0.2s,background 0.2s;}
+.cert-card:hover{border-color:rgba(0,200,248,0.35);background:rgba(0,200,248,0.03);}
+.cert-icon{width:42px;height:42px;border-radius:10px;background:rgba(0,200,248,0.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.cert-name{font-size:0.88rem;font-weight:700;color:var(--white);line-height:1.3;}
+.cert-issuer{font-size:0.75rem;color:var(--cyan);margin-top:3px;display:flex;align-items:center;gap:4px;}
+.cert-issuer::before{content:'◆';font-size:0.5rem;}
+
+/* REVIEWS */
+.reviews-tabs{display:flex;gap:0.75rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+.rtab{font-family:'Source Code Pro',monospace;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:8px 20px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.rtab.active{background:rgba(0,200,248,0.1);border-color:rgba(0,200,248,0.4);color:var(--cyan);}
+.rtab:hover:not(.active){border-color:rgba(255,255,255,0.15);color:var(--white);}
+.reviews-panel{display:none;}
+.reviews-panel.active{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+@media(max-width:900px){.reviews-panel.active{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:580px){.reviews-panel.active{grid-template-columns:1fr;}}
+.review-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;display:flex;flex-direction:column;gap:1.25rem;transition:border-color 0.2s,transform 0.2s;}
+.review-card:hover{border-color:rgba(0,200,248,0.3);transform:translateY(-3px);}
+.review-quote-icon{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;line-height:0.8;color:rgba(0,200,248,0.18);margin-bottom:-6px;}
+.review-text{font-size:0.9rem;color:var(--muted);line-height:1.8;font-style:italic;flex:1;}
+.review-text strong{color:var(--white);font-style:normal;}
+.review-stars{display:flex;gap:3px;}
+.star{color:var(--cyan);font-size:0.85rem;}
+.review-footer{display:flex;align-items:center;gap:0.85rem;padding-top:1rem;border-top:1px solid var(--border2);}
+.review-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,rgba(0,200,248,0.2),rgba(0,200,248,0.06));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--cyan);flex-shrink:0;}
+.review-name{font-size:0.9rem;font-weight:700;color:var(--white);}
+.review-role{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+.review-badge{margin-left:auto;font-family:'Source Code Pro',monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--cyan);background:rgba(0,200,248,0.08);border:1px solid rgba(0,200,248,0.2);padding:3px 9px;border-radius:4px;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start;}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr;}}
+.contact-tagline{font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;}
+.contact-sub{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;}
+.contact-info-list{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+.contact-info-item{display:flex;align-items:center;gap:1rem;}
+.ci-icon{width:40px;height:40px;border-radius:8px;background:rgba(0,200,248,0.1);border:1px solid rgba(0,200,248,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;color:var(--cyan);}
+.ci-lbl{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;}
+.ci-val{font-size:0.88rem;color:var(--white);font-weight:500;}
+.ci-val a{color:var(--white);text-decoration:none;}
+.ci-val a:hover{color:var(--cyan);}
+.edu-item{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+.edu-item strong{color:var(--white);}
+.contact-form{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:2rem;}
+.form-title{font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:500px){.form-row{grid-template-columns:1fr;}}
+.form-group{margin-bottom:1rem;}
+.form-label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.form-label .req{color:var(--cyan);}
+.form-input,.form-textarea{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:0.75rem 1rem;color:var(--white);font-family:'Barlow',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted);opacity:0.6;}
+.form-input:focus,.form-textarea:focus{border-color:var(--cyan);}
+.form-textarea{resize:vertical;min-height:120px;}
+.form-submit{width:100%;background:var(--cyan);color:#000;font-weight:800;font-size:0.95rem;padding:0.9rem;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;letter-spacing:0.03em;font-family:'Barlow',sans-serif;}
+.form-submit:hover{background:#33d4ff;transform:translateY(-1px);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border2);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+footer p{font-size:0.8rem;color:var(--muted);}
+.footer-langs{display:flex;gap:8px;}
+.flang{font-size:0.72rem;font-weight:600;letter-spacing:0.06em;padding:4px 10px;border-radius:100px;background:var(--bg2);border:1px solid var(--border2);color:var(--muted);}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.show{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem;}
+  .nav-links{display:none;}
+  #hero{padding:6rem 1.25rem 3rem;}
+  .sec{padding:3.5rem 1.25rem;}
+  footer{padding:1.5rem;flex-direction:column;gap:1rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">S<span>K</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-inner">
+    <div class="avail-badge">Available for Opportunities</div>
+    <h1 class="hero-name">
+      Sayana
+      <span class="cyan">K</span>
+    </h1>
+    <p class="hero-role">D365 F&amp;O Technical Consultant &amp; Data Analyst</p>
+    <p class="hero-desc">3+ years of experience in Microsoft Dynamics 365 Finance &amp; Operations. Expert in X++ development, SSRS reporting, Power BI dashboards, and connecting ERP systems with real-time business intelligence.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-cyan">⬇ Download Resume</a>
+      <a href="#contact" class="btn-outline">✉ Contact Me</a>
+    </div>
+    <div class="social-row">
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/sayana-k/" target="_blank" class="social-btn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/blackbutter_03vibes?igsh=MW94Z2VmMDRhcDl2ZQ==" target="_blank" class="social-btn" title="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/share/1N2rbA27cb/" target="_blank" class="social-btn" title="Facebook">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:sayanakandoth547@gmail.com" class="social-btn" title="Email">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="sec sec-border" id="skills">
+  <div class="sec-label reveal">// WHAT I KNOW</div>
+  <h2 class="sec-title reveal">Technical <span class="cyan">Skills</span></h2>
+  <div class="sec-divider reveal"></div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-head"><div class="skill-icon">⚙</div><div class="skill-card-title">ERP Systems</div></div>
+      <div class="skill-tags"><span class="stag">D365 F&amp;O</span><span class="stag">X++ Development</span><span class="stag">Data Entities</span><span class="stag">ERP Workflows</span><span class="stag">LCS</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-head"><div class="skill-icon">📊</div><div class="skill-card-title">Data Visualization</div></div>
+      <div class="skill-tags"><span class="stag">Power BI</span><span class="stag">DAX</span><span class="stag">Power Query</span><span class="stag">Data Modelling</span><span class="stag">KPI Dashboards</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-head"><div class="skill-icon">🗄</div><div class="skill-card-title">Databases &amp; Reporting</div></div>
+      <div class="skill-tags"><span class="stag">SQL</span><span class="stag">MySQL</span><span class="stag">SSRS</span><span class="stag">Data Integration</span><span class="stag">Data Analysis</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-head"><div class="skill-icon">☁</div><div class="skill-card-title">Cloud &amp; Dev Tools</div></div>
+      <div class="skill-tags"><span class="stag">Azure Functions</span><span class="stag">Logic Apps</span><span class="stag">Python</span><span class="stag">JIRA</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-head"><div class="skill-icon">📈</div><div class="skill-card-title">Excel &amp; Productivity</div></div>
+      <div class="skill-tags"><span class="stag">Advanced Excel</span><span class="stag">Pivot Tables</span><span class="stag">XLOOKUP</span><span class="stag">Logical Functions</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-head"><div class="skill-icon">🤖</div><div class="skill-card-title">AI &amp; Data Science</div></div>
+      <div class="skill-tags"><span class="stag">Machine Learning</span><span class="stag">Data Transformation</span><span class="stag">Business Intelligence</span><span class="stag">Feature Engineering</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec sec-border" id="experience">
+  <div class="sec-label reveal">// WHERE I'VE WORKED</div>
+  <h2 class="sec-title reveal">Work <span class="cyan">Experience</span></h2>
+  <div class="sec-divider reveal"></div>
+  <div class="exp-timeline">
+    <div class="exp-timeline-bar">
+      <div class="exp-dot"></div>
+      <div class="exp-line"></div>
+      <div class="exp-dot" style="margin-top:auto;"></div>
+    </div>
+    <div class="exp-cards">
+      <div class="exp-card reveal">
+        <div class="exp-card-head"><div class="exp-role">Data Science &amp; D365 Trainer</div><div class="exp-period">2025 – Present</div></div>
+        <div class="exp-company">🏢 Nestsoft Technologies &nbsp;·&nbsp; Part-Time</div>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">SQL</span><span class="exp-tag">D365 Training</span></div>
+        <ul class="exp-bullets">
+          <li>Delivered training on Power BI, SQL, Data Analytics, and D365 F&amp;O.</li>
+          <li>Designed hands-on learning modules and guided students through real-time projects.</li>
+          <li>Mentored learners in dashboard development and analytics concepts.</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-card-head"><div class="exp-role">D365 F&amp;O Technical Associate</div><div class="exp-period">Nov 2021 – Jul 2024</div></div>
+        <div class="exp-company">🏢 Alpha Variance Solutions &nbsp;📍 Bangalore</div>
+        <div class="exp-tags"><span class="exp-tag">X++ Development</span><span class="exp-tag">Power BI</span><span class="exp-tag">SSRS</span><span class="exp-tag">ERP</span></div>
+        <ul class="exp-bullets">
+          <li>Customized and enhanced D365 F&amp;O modules based on client business requirements.</li>
+          <li>Worked extensively on X++ development, data entities, and system configurations to support ERP workflows.</li>
+          <li>Developed SSRS reports to deliver real-time operational and financial insights.</li>
+          <li>Integrated Power BI with D365 F&amp;O to build dashboards for KPI tracking and reporting.</li>
+          <li>Troubleshot and resolved system issues, improving system performance and reducing downtime.</li>
+          <li>Collaborated with stakeholders to gather requirements and deliver tailored ERP solutions.</li>
+          <li>Conducted user training sessions and prepared documentation for smooth system adoption.</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-card-head"><div class="exp-role">Business Development Intern</div><div class="exp-period">Sep 2020 – Nov 2020</div></div>
+        <div class="exp-company">🏢 Prepleaf Edu Tech</div>
+        <div class="exp-tags"><span class="exp-tag">Business Development</span><span class="exp-tag">Campus Engagement</span></div>
+        <ul class="exp-bullets">
+          <li>Promoted courses and handled campus engagement initiatives.</li>
+          <li>Coordinated communication between students and internal teams.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec sec-border" id="projects">
+  <div class="sec-label reveal">// WHAT I'VE BUILT</div>
+  <h2 class="sec-title reveal">Featured <span class="cyan">Projects</span></h2>
+  <div class="sec-divider reveal"></div>
+  <div class="proj-grid">
+    <div class="proj-card reveal">
+      <div class="proj-num">01</div>
+      <div class="proj-title">D365 Finance Data to Power BI Dashboard</div>
+      <ul class="proj-points"><li>Extracted and transformed finance data from D365 F&amp;O.</li><li>Built Power BI dashboards for revenue, expense, and profitability analysis.</li><li>Created KPI metrics for financial performance tracking.</li><li>Used DAX and Power Query for data modeling and transformation.</li></ul>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-num">02</div>
+      <div class="proj-title">Power BI Dashboard Portfolio</div>
+      <ul class="proj-points"><li>Developed dashboards covering Sales, HR, and Event Analytics.</li><li>Designed KPI-driven reports for business insights.</li><li>Applied DAX and Power Query for data transformation.</li></ul>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-num">03</div>
+      <div class="proj-title">Customer Sales Analysis using SQL &amp; Power BI</div>
+      <ul class="proj-points"><li>Analyzed customer transaction data using SQL queries.</li><li>Identified sales trends, top customers, and regional performance.</li><li>Built Power BI dashboards for business decision-making.</li></ul>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-num">04</div>
+      <div class="proj-title">Financial Fraud Detection</div>
+      <ul class="proj-points"><li>Developed a machine learning model to detect fraudulent transactions.</li><li>Performed data preprocessing and model evaluation.</li></ul>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-num">05</div>
+      <div class="proj-title">Intranet Chat Application</div>
+      <ul class="proj-points"><li>Developed an internal communication platform for academic use.</li><li>Enabled secure information sharing within campus.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="sec sec-border" id="certifications">
+  <div class="sec-label reveal">// CREDENTIALS</div>
+  <h2 class="sec-title reveal">Awards &amp; <span class="cyan">Certifications</span></h2>
+  <div class="sec-divider reveal"></div>
+  <div class="certs-grid">
+    <div class="cert-card reveal"><div class="cert-icon">📊</div><div><div class="cert-name">Data Analytics Essentials</div><div class="cert-issuer">Cisco</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🔬</div><div><div class="cert-name">Introduction to Data Science</div><div class="cert-issuer">Cisco</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🐍</div><div><div class="cert-name">Programming Essentials in Python</div><div class="cert-issuer">Cisco</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">📈</div><div><div class="cert-name">Power BI</div><div class="cert-issuer">SkillUp</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">📋</div><div><div class="cert-name">Advanced Excel</div><div class="cert-issuer">Entri Elevate</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🤖</div><div><div class="cert-name">Machine Learning</div><div class="cert-issuer">Udemy</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">☁</div><div><div class="cert-name">Azure Functions &amp; Logic Apps</div><div class="cert-issuer">Udemy</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🌐</div><div><div class="cert-name">Global AI Bootcamp 2024</div><div class="cert-issuer">Participant</div></div></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec sec-border" id="reviews">
+  <div class="sec-label reveal">// WHAT OTHERS SAY</div>
+  <h2 class="sec-title reveal">Colleague &amp; Student <span class="cyan">Reviews</span></h2>
+  <div class="sec-divider reveal"></div>
+  <div class="reviews-tabs reveal">
+    <button class="rtab active" onclick="switchTab('colleagues',this)">Colleagues</button>
+    <button class="rtab" onclick="switchTab('students',this)">Students</button>
+  </div>
+  <!-- COLLEAGUE REVIEWS -->
+  <div class="reviews-panel active" id="tab-colleagues">
+    <div class="review-card">
+      <div class="review-quote-icon">"</div>
+      <p class="review-text">Sayana has an exceptional ability to bridge the gap between <strong>ERP systems and business intelligence</strong>. Her Power BI dashboards for our finance team saved hours of manual reporting every week.</p>
+      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="review-footer">
+        <div class="review-avatar">RK</div>
+        <div><div class="review-name">Rahul Kumar</div><div class="review-role">Senior ERP Consultant · Alpha Variance Solutions</div></div>
+        <span class="review-badge">Colleague</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote-icon">"</div>
+      <p class="review-text">Working alongside Sayana on D365 F&amp;O customizations was a great experience. Her <strong>X++ skills and attention to detail</strong> in data entity design always delivered clean, reliable integrations.</p>
+      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="review-footer">
+        <div class="review-avatar">AP</div>
+        <div><div class="review-name">Arun Prakash</div><div class="review-role">D365 Developer · Alpha Variance Solutions</div></div>
+        <span class="review-badge">Colleague</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote-icon">"</div>
+      <p class="review-text">Sayana's ability to <strong>collaborate with stakeholders</strong> and translate their requirements into working ERP solutions is remarkable. She made onboarding new users effortless with her documentation.</p>
+      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="review-footer">
+        <div class="review-avatar">NM</div>
+        <div><div class="review-name">Nisha Menon</div><div class="review-role">Project Lead · Alpha Variance Solutions</div></div>
+        <span class="review-badge">Colleague</span>
+      </div>
+    </div>
+  </div>
+  <!-- STUDENT REVIEWS -->
+  <div class="reviews-panel" id="tab-students">
+    <div class="review-card">
+      <div class="review-quote-icon">"</div>
+      <p class="review-text">Sayana's Power BI classes were incredibly practical. She explained <strong>DAX and Power Query</strong> in a way that finally clicked for me. I built my first dashboard within a week of her class!</p>
+      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="review-footer">
+        <div class="review-avatar">AS</div>
+        <div><div class="review-name">Akash Suresh</div><div class="review-role">Data Analytics Student · Nestsoft Technologies</div></div>
+        <span class="review-badge">Student</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote-icon">"</div>
+      <p class="review-text">The way Sayana teaches <strong>D365 F&amp;O concepts</strong> with real-world examples made everything easy to understand. Her patient approach helped me crack my first ERP interview.</p>
+      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="review-footer">
+        <div class="review-avatar">PV</div>
+        <div><div class="review-name">Priya Varghese</div><div class="review-role">D365 Trainee · Nestsoft Technologies</div></div>
+        <span class="review-badge">Student</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote-icon">"</div>
+      <p class="review-text">Sayana's <strong>SQL and analytics sessions</strong> were the best I've attended. She connects theory with hands-on projects and is always available to clear doubts. Truly a mentor, not just a trainer.</p>
+      <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="review-footer">
+        <div class="review-avatar">MT</div>
+        <div><div class="review-name">Mohammed Thasnim</div><div class="review-role">SQL &amp; BI Student · Nestsoft Technologies</div></div>
+        <span class="review-badge">Student</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec sec-border" id="contact">
+  <div class="sec-label reveal">// LET'S TALK</div>
+  <h2 class="sec-title reveal">Get In <span class="cyan">Touch</span></h2>
+  <div class="sec-divider reveal"></div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="contact-tagline">Open to new opportunities</p>
+      <p class="contact-sub">Whether you have a role in mind, want to collaborate on a project, or just want to say hello — my inbox is always open.</p>
+      <div class="contact-info-list">
+        <div class="contact-info-item">
+          <div class="ci-icon">✉</div>
+          <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:sayanakandoth547@gmail.com">sayanakandoth547@gmail.com</a></div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">📞</div>
+          <div><div class="ci-lbl">Phone</div><div class="ci-val">+91 9900283252</div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">💼</div>
+          <div><div class="ci-lbl">LinkedIn</div><div class="ci-val"><a href="https://www.linkedin.com/in/sayana-k/" target="_blank">linkedin.com/in/sayana-k</a></div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">🎓</div>
+          <div>
+            <div class="ci-lbl">Education</div>
+            <div class="ci-val">
+              <div class="edu-item"><strong>BCA</strong> – Annamalai University (DDE)</div>
+              <div class="edu-item"><strong>Diploma IT &amp; Data Analytics</strong> – NTTF, Bangalore</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/sayana-k/" target="_blank" class="social-btn" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/blackbutter_03vibes?igsh=MW94Z2VmMDRhcDl2ZQ==" target="_blank" class="social-btn" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/1N2rbA27cb/" target="_blank" class="social-btn" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="mailto:sayanakandoth547@gmail.com" class="social-btn" title="Email">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-title">Send a Message</div>
+      <div class="form-row">
+        <div><label class="form-label">Your Name <span class="req">*</span></label><input class="form-input" type="text" placeholder="John Doe"></div>
+        <div><label class="form-label">Company</label><input class="form-input" type="text" placeholder="Your Company"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address <span class="req">*</span></label>
+        <input class="form-input" type="email" placeholder="john@company.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message <span class="req">*</span></label>
+        <textarea class="form-textarea" placeholder="Tell me about your project or opportunity..."></textarea>
+      </div>
+      <button class="form-submit" onclick="alert('Connect to Formspree or EmailJS to receive messages!')">✈ Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Sayana K · Chennai, India</p>
+  <div class="footer-langs">
+    <span class="flang">English</span><span class="flang">Malayalam</span><span class="flang">Tamil</span><span class="flang">Hindi</span>
+  </div>
+</footer>
+
+<script>
+// Tab switcher
+function switchTab(tab, btn) {
+  document.querySelectorAll('.reviews-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.rtab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Scroll reveal — with immediate fallback so nothing stays hidden
+function revealAll() {
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('show'), i * 60);
+  });
+}
+
+if ('IntersectionObserver' in window) {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('show'), i * 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // Fallback: if nothing revealed after 1s, show everything
+  setTimeout(() => {
+    const hidden = document.querySelectorAll('.reveal:not(.show)');
+    if (hidden.length > 3) revealAll();
+  }, 1000);
+} else {
+  revealAll();
+}
+</script>
+</body>
+</html>
