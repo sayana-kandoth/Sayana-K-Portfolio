@@ -516,23 +516,49 @@ footer p{font-size:0.8rem;color:var(--muted);}
         </a>
       </div>
     </div>
-    <div class="contact-form reveal">
-      <div class="form-title">Send a Message</div>
-      <div class="form-row">
-        <div><label class="form-label">Your Name <span class="req">*</span></label><input class="form-input" type="text" placeholder="John Doe"></div>
-        <div><label class="form-label">Company</label><input class="form-input" type="text" placeholder="Your Company"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email Address <span class="req">*</span></label>
-        <input class="form-input" type="email" placeholder="john@company.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message <span class="req">*</span></label>
-        <textarea class="form-textarea" placeholder="Tell me about your project or opportunity..."></textarea>
-      </div>
-      <button class="form-submit" onclick="alert('Connect to Formspree or EmailJS to receive messages!')">✈ Send Message</button>
+   <form action="https://formspree.io/f/mbdpngwo" method="POST" class="contact-form reveal">
+  
+  <div class="form-title">Get in Touch</div>
+
+  <p style="margin-bottom: 20px;">
+    I’m open to freelance projects, collaborations, and full-time opportunities.
+  </p>
+
+  <div class="form-row">
+    <div>
+      <label class="form-label">Full Name <span class="req">*</span></label>
+      <input class="form-input" type="text" name="name" placeholder="John Doe" required>
+    </div>
+
+    <div>
+      <label class="form-label">Organization</label>
+      <input class="form-input" type="text" name="company" placeholder="Company / Organization">
     </div>
   </div>
+
+  <div class="form-group">
+    <label class="form-label">Email Address <span class="req">*</span></label>
+    <input class="form-input" type="email" name="email" placeholder="john@company.com" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Message <span class="req">*</span></label>
+    <textarea class="form-textarea" name="message" placeholder="Describe your requirement, collaboration, or opportunity..." required></textarea>
+  </div>
+
+  <!-- Email subject -->
+  <input type="hidden" name="_subject" value="New Contact from Portfolio Website">
+
+  <!-- Redirect to thank you page -->
+  <input type="hidden" name="_next" value="https://yourwebsite.com/thankyou.html">
+
+  <button class="form-submit" type="submit">Send Message</button>
+
+  <p style="font-size:14px; margin-top:10px;">
+    I typically respond within 24–48 hours.
+  </p>
+
+</form>
 </section>
 
 <!-- FOOTER -->
